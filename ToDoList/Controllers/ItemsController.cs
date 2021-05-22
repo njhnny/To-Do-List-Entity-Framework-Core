@@ -41,16 +41,16 @@ namespace ToDoList.Controllers
     }
     public ActionResult Edit(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-      return View(thisItem);
+    var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+    return View(thisItem);
     }
 
     [HttpPost]
     public ActionResult Edit(Item item)
     {
-      _db.Entry(item).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+        _db.Entry(item).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Index");
     }
   }
 }
