@@ -12,19 +12,20 @@ namespace ToDoList
   {
     public Startup(IWebHostEnvironment env)
     {
-      var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddEnvironmentVariables();
-      Configuration = builder.Build();
+    var builder = new ConfigurationBuilder()
+        .SetBasePath(env.ContentRootPath)
+        .AddJsonFile("appsettings.json");
+    Configuration = builder.Build();
     }
 
-    public IConfigurationRoot Configuration { get; }
+    public IConfigurationRoot Configuration { get; set; }
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddMvc();
+    services.AddMvc();
 
-      services.AddEntityFrameworkMySql()
+
+    services.AddEntityFrameworkMySql()
         .AddDbContext<ToDoListContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
     }
